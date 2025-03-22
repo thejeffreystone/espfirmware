@@ -31,7 +31,7 @@ update:
 http_request:
 
 dashboard_import:
-  package_import_url: github://esphome/firmware/voice-assistant/m5stack-atom-echo.adopted.yaml@main
+  package_import_url: github://thejeffreystone/espfirmware/voice-assistant/m5stack-atom-echo.adopted.yaml@main
 
 wifi:
   on_connect:
@@ -77,7 +77,7 @@ speaker:
 voice_assistant:
   id: va
   microphone: echo_microphone
-  speaker: echo_speaker
+  #speaker: echo_speaker
   noise_suppression_level: 2
   auto_gain: 31dBFS
   volume_multiplier: 2.0
@@ -104,6 +104,11 @@ voice_assistant:
         green: 0%
         brightness: 100%
         effect: none
+  on_tts_end:
+    - homeassistant.service:
+        service: script.jarvis_assist_response
+        data: 
+          response: !lambda 'return x;'
   on_end:
     - delay: 100ms
     - wait_until:
